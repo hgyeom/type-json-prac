@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { Button, Input } from "antd";
 
 const Main: React.FC<any> = () => {
   const [data, setData] = useState([]);
   const [contents, setContents] = useState<string>("");
 
-  const fetchData = () => {
-    alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
-
+  const fetchData = async () => {
+    // alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
+    try {
+      const { data } = await axios.get("http://localhost:4000/boards");
+      setData(data);
+    } catch (e) {
+      alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
+    }
     // TODO: 데이터베이스에서 boards 리스트 가져오기
     // TODO: 가져온 결과 배열을 data state에 set 하기
     // TODO: 네트워크 등 기타 문제인 경우, "일시적인 오류가 발생하였습니다. 고객센터로 연락주세요." alert
@@ -17,10 +23,11 @@ const Main: React.FC<any> = () => {
   useEffect(() => {
     // TODO: 해당 useEffect는 최초 마운트시에만 동작하게 제어
     fetchData();
-  });
+  }, []);
 
   const handleBoardSubmit = (e: any) => {
-    alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
+    // alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
+    e.preventDefault();
 
     // TODO: 자동 새로고침 방지
     // TODO: 이메일과 contents를 이용하여 post 요청 등록(isDeleted 기본값은 false)

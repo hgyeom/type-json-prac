@@ -39,6 +39,20 @@
       "email": "asdf",
       "password": "123",
       "id": 8
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "12345",
+      "confirmPassword": "12345",
+      "agreed": true,
+      "id": 9
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "agreed": true,
+      "id": 10
     }
   ],
   "boards": [
