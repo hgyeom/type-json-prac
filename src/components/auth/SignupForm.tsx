@@ -1,10 +1,31 @@
 import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import styled from "styled-components";
+import axios from "axios";
 
-const SignupForm: React.FC<any> = () => {
+interface SignupFormProps {
+  handleGoToLogin: () => void;
+}
+
+const SignupForm: React.FC<SignupFormProps> = ({ handleGoToLogin }) => {
   const handleSignup = async (values: any) => {
-    alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
+    const { email, password } = values;
+    try {
+      const { data } = await axios.get(
+        `http://localhost:4000/users?email=${email}`
+      );
+      if (data.length <= 0) {
+        alert("이미 존재하는 아이디입니다.");
+      } else {
+        await axios.post(`http://localhost:4000/users`, { email, password });
+        alert(
+          "회원가입이 성공적으로 처리되었습니다. 로그인 페이지로 이동합니다."
+        );
+        handleGoToLogin();
+      }
+    } catch (e) {
+      alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
+    }
 
     // TODO: 데이터베이스에서 email과 password 기반으로 찾아서 이미 존재하는지 확인 후, 존재하는 경우 "이미 존재하는 아이디입니다." alert
     // TODO: 네트워크 등 기타 문제인 경우, "일시적인 오류가 발생하였습니다. 고객센터로 연락주세요." alert
