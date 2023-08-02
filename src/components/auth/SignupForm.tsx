@@ -2,33 +2,29 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import styled from "styled-components";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 interface SignupFormProp {
-  handleSignupSuccess: () => void;
+  handleGoToLogin: () => void;
 }
 
-const SignupForm: React.FC<SignupFormProp> = ({ handleSignupSuccess }) => {
-  const navigate = useNavigate();
+const SignupForm: React.FC<SignupFormProp> = ({ handleGoToLogin }) => {
   const handleSignup = async (values: any) => {
+    const { email, password } = values;
     try {
-      const response = await axios.get(
-        `http://localhost:4000/users?email=${values.email}&password=${values.password}`
+      const { data } = await axios.get(
+        `http://localhost:4000/users?email=${email}`
       );
-      const data = response.data[0];
-      if (data) {
+      if (data.length <= 0) {
         alert("이미 존재하는 아이디입니다.");
-      } else if (!data) {
-        await axios.post("http://localhost:4000/users", values);
+      } else {
+        await axios.post(`http://localhost:4000/users`, { email, password });
         alert(
           "회원가입이 성공적으로 처리되었습니다. 로그인 페이지로 이동합니다."
         );
-        handleSignupSuccess();
-      } else {
-        alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
+        handleGoToLogin();
       }
     } catch (e) {
-      console.log(e);
+      alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
     }
 
     // alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");

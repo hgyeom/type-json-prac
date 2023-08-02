@@ -1,5 +1,4 @@
 import { Button } from "antd";
-import confirm from "antd/es/modal/confirm";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -11,7 +10,7 @@ const AuthLayout = () => {
     // alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
     const userData = localStorage.getItem("user") as string;
     const user = JSON.parse(userData);
-    if (!user.token || !user.email) {
+    if (!user?.token || !user?.email) {
       alert("토큰 또는 이메일이 없습니다. 로그인해주세요.");
       localStorage.removeItem("user");
       navigate("/auth");

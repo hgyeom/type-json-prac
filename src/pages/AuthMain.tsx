@@ -21,10 +21,6 @@ const AuthMain: React.FC = () => {
     setIsLogin(false);
   };
 
-  const handleSignupSuccess = () => {
-    setIsLogin(true); // 회원가입 성공 시, 로그인 페이지로 돌아갑니다.
-  };
-
   return (
     <Layout style={{ height: "100vh" }}>
       <Content
@@ -39,7 +35,7 @@ const AuthMain: React.FC = () => {
           {isLogin ? (
             <LoginForm />
           ) : (
-            <SignupForm handleSignupSuccess={handleSignupSuccess} />
+            <SignupForm handleGoToLogin={handleGoToLogin} />
           )}
           <Button
             type="link"

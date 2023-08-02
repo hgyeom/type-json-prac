@@ -8,23 +8,22 @@ import { useNavigate } from "react-router-dom";
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const handleLogin = async (values: any) => {
+    const { email, password } = values;
     try {
-      const response = await axios.get(
-        `http://localhost:4000/users?email=${values.email}&password=${values.password}`
+      const { data } = await axios.get(
+        `http://localhost:4000/users?email=${email}&password=${password}`
       );
-      const data = response.data[0];
-      if (data) {
+
+      if (data.length <= 0) {
+        const user = { token: shortid.generate(), email: email };
+        localStorage.setItem("user", JSON.stringify(user));
         alert("로그인에 성공하였습니다. 메인 페이지로 이동합니다.");
-        const userData = { token: shortid.generate(), email: data.email };
-        localStorage.setItem("user", JSON.stringify(userData));
         navigate("/");
-      } else if (!data) {
-        alert("일치하는 유저를 찾을 수 없습니다.");
       } else {
-        alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
+        alert("일치하는 유저를 찾을 수 없습니다.");
       }
     } catch (e) {
-      console.log(e);
+      alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
     }
     // alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
     // TODO: email과 password를 DB에서 찾아서 로그인 검증

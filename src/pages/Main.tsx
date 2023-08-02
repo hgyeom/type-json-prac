@@ -25,10 +25,35 @@ const Main: React.FC<any> = () => {
     fetchData();
   }, []);
 
-  const handleBoardSubmit = (e: any) => {
+  const handleInputChange = (e: any) => {
+    setContents(e.target.value);
+  };
+
+  const getLocalUserData = () => {
+    const userData = localStorage.getItem("user") as string;
+    const user = JSON.parse(userData);
+    return user;
+  };
+
+  const handleBoardSubmit = async (e: any) => {
     // alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
     e.preventDefault();
+    const user = getLocalUserData();
+    const value = {
+      email: user.email,
+      contents,
+      isDeleted: false,
+    };
 
+    try {
+      await axios.post("http://localhost:4000/boards", value);
+      alert(
+        "작성이 완료되었습니다. 아직 자동 새로고침이 불가하여 수동으로 갱신합니다."
+      );
+      window.location.reload();
+    } catch (e) {
+      alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
+    }
     // TODO: 자동 새로고침 방지
     // TODO: 이메일과 contents를 이용하여 post 요청 등록(isDeleted 기본값은 false)
     // TODO: 네트워크 등 기타 문제인 경우, "일시적인 오류가 발생하였습니다. 고객센터로 연락주세요." alert
@@ -36,8 +61,17 @@ const Main: React.FC<any> = () => {
     // TODO: 처리완료 후, reload를 이용하여 새로고침
   };
 
-  const handleInputChange = (e: any) => {
-    setContents(e.target.value);
+  const handleDeleteButton = async (id: string) => {
+    try {
+      await axios.patch(`http://localhost:4000/boards/${id}`, {
+        isDeleted: true,
+      });
+      alert("방명록이 삭제되었습니다.");
+      window.location.reload();
+    } catch (e) {
+      console.log(e);
+      alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
+    }
   };
 
   return (
@@ -51,15 +85,20 @@ const Main: React.FC<any> = () => {
         />
       </StyledForm>
       <ListWrapper>
-        {data.map((item: any, index) => (
-          <ListItem key={item.id}>
-            <span>
-              {index + 1}. {item.contents}
-            </span>
-            {/* // TODO: 로그인 한 user의 이메일과 일치하는 경우에만 삭제버튼 보이도록 제어 */}
-            <Button>삭제</Button>
-          </ListItem>
-        ))}
+        {data
+          .filter((item: any) => !item.isDeleted)
+          .map((item: any, index) => (
+            <ListItem key={item.id}>
+              <span>
+                {index + 1}. {item.contents}
+              </span>
+              {item.email === getLocalUserData().email && (
+                <Button onClick={() => handleDeleteButton(item.id)}>
+                  삭제
+                </Button>
+              )}
+            </ListItem>
+          ))}
       </ListWrapper>
     </MainWrapper>
   );
