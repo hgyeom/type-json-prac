@@ -15,10 +15,8 @@ const LoginForm: React.FC = () => {
       );
 
       if (data.length <= 0) {
-        // const user = { token: shortid.generate(), email: email };
-        // localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", shortid.generate());
-        localStorage.setItem("email", email);
+        const user = { token: shortid.generate(), email: email };
+        localStorage.setItem("user", JSON.stringify(user));
         alert("로그인에 성공하였습니다. 메인 페이지로 이동합니다.");
         navigate("/");
       } else {
@@ -27,7 +25,7 @@ const LoginForm: React.FC = () => {
     } catch (e) {
       alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.");
     }
-
+    // alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
     // TODO: email과 password를 DB에서 찾아서 로그인 검증
     // TODO: 일치하는 유저가 없는 경우 "일치하는 유저를 찾을 수 없습니다." alert
     // TODO: 네트워크 등 기타 문제인 경우, "일시적인 오류가 발생하였습니다. 고객센터로 연락주세요." alert

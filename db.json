@@ -41,23 +41,18 @@
       "id": 8
     },
     {
-      "email": "tt@tt.com",
-      "password": "123",
-      "confirmPassword": "123",
+      "email": "test@gmail.com",
+      "password": "12345",
+      "confirmPassword": "12345",
       "agreed": true,
       "id": 9
     },
     {
-      "email": "test@gmail.com4",
-      "password": "123",
-      "confirmPassword": "123",
+      "email": "test@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
       "agreed": true,
       "id": 10
-    },
-    {
-      "email": "test@gmail.com44",
-      "password": "3",
-      "id": 11
     }
   ],
   "boards": [
@@ -114,6 +109,30 @@
       "contents": "asdfasdf",
       "isDeleted": false,
       "id": 9
+    },
+    {
+      "email": "test@gmail.com",
+      "contents": "123",
+      "isDeleted": false,
+      "id": 10
+    },
+    {
+      "email": "test@gmail.com",
+      "contents": "123",
+      "isDeleted": false,
+      "id": 11
+    },
+    {
+      "email": "1",
+      "contents": "123",
+      "isDeleted": true,
+      "id": 12
+    },
+    {
+      "email": "test@gmail.com",
+      "contents": "삭제 테스트",
+      "isDeleted": true,
+      "id": 13
     }
   ]
 }
