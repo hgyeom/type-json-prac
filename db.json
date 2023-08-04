@@ -59,13 +59,13 @@
     {
       "email": "test@gmail.com",
       "contents": "asdf",
-      "isDeleted": false,
+      "isDeleted": true,
       "id": 1
     },
     {
       "email": "test@gmail.com",
       "contents": "aaslkdfasldfjalskf",
-      "isDeleted": false,
+      "isDeleted": true,
       "id": 2
     },
     {
@@ -113,13 +113,13 @@
     {
       "email": "test@gmail.com",
       "contents": "123",
-      "isDeleted": false,
+      "isDeleted": true,
       "id": 10
     },
     {
       "email": "test@gmail.com",
       "contents": "123",
-      "isDeleted": false,
+      "isDeleted": true,
       "id": 11
     },
     {
@@ -133,6 +133,35 @@
       "contents": "삭제 테스트",
       "isDeleted": true,
       "id": 13
+    },
+    {
+      "email": "1",
+      "contents": "123",
+      "isDeleted": true,
+      "id": 14
+    }
+  ],
+  "reviews": [
+    {
+      "boardId": 3,
+      "email": "test@gmail.com",
+      "contents": "123",
+      "isDeleted": false,
+      "id": 1
+    },
+    {
+      "boardId": 3,
+      "email": "test@gmail.com",
+      "contents": "4",
+      "isDeleted": false,
+      "id": 2
+    },
+    {
+      "boardId": 7,
+      "email": "test@gmail.com",
+      "contents": "123",
+      "isDeleted": false,
+      "id": 3
     }
   ]
 }
